@@ -1,17 +1,9 @@
-import { useState,useEffect } from 'react'
+import { CustomersPage } from './pages/CustomersPage';
 import './App.css'
 
 
 function App() {
-
-
-
-
-  return (
-    <>
-     
-    </>
-  )
+  return <CustomersPage />;
 }
 
 export default App
