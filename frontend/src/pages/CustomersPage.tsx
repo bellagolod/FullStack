@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type { Customer } from '../types/Customer';
 import { getCustomers, createCustomer, updateCustomer, deleteCustomer } from '../api/customersApi';
 
-export function CustomersPage() {
+export default function CustomersPage() {
    const [customers, setCustomers] = useState<Customer[]>([]);
    const [form, setForm] = useState({ name: '', city: '', phone: '', isActive: true });
    const [editingId, setEditingId] = useState<number | null>(null);
