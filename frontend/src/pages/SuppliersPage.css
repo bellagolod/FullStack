@@ -1,0 +1,174 @@
+.suppliers {
+  text-align: right;
+  padding: 24px 32px 48px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.suppliers h1 {
+  font-size: 40px;
+  margin: 16px 0 24px;
+}
+
+/* טופס הוספה/עריכה */
+.supplier-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--social-bg);
+  margin-bottom: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 180px;
+}
+
+.field label {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.field input {
+  font: inherit;
+  font-size: 16px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: var(--text-h);
+  padding-bottom: 8px;
+  white-space: nowrap;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* כפתורים */
+button {
+  font: inherit;
+  font-size: 15px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text-h);
+  border-color: var(--border);
+}
+
+button.danger {
+  background: transparent;
+  color: #e5484d;
+  border-color: rgba(229, 72, 77, 0.5);
+}
+
+/* טבלה */
+.suppliers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.suppliers-table th,
+.suppliers-table td {
+  text-align: right;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.suppliers-table th {
+  color: var(--text-h);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border);
+}
+
+.suppliers-table td {
+  color: var(--text-h);
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.row-actions button {
+  padding: 5px 12px;
+  font-size: 14px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.badge.active {
+  background: rgba(48, 164, 108, 0.15);
+  color: #30a46c;
+}
+
+.badge.inactive {
+  background: var(--code-bg);
+  color: var(--text);
+}
+
+.error {
+  color: #e5484d;
+  background: rgba(229, 72, 77, 0.1);
+  border: 1px solid rgba(229, 72, 77, 0.3);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.hint {
+  color: var(--text);
+  padding: 24px 0;
+}

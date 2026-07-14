@@ -1,17 +1,8 @@
-import { useState,useEffect } from 'react'
 import './App.css'
-
+import SuppliersPage from './pages/SuppliersPage'
 
 function App() {
-
-
-
-
-  return (
-    <>
-     
-    </>
-  )
+  return <SuppliersPage />
 }
 
 export default App
