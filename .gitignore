@@ -7,3 +7,6 @@ frontend/node_modules/
 frontend/dist/
 .vs/
 *.user
+app.db-shm
+app.db-wal
+

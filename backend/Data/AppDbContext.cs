@@ -10,4 +10,5 @@ public class AppDbContext : DbContext
    public DbSet<Item> Items => Set<Item>();
    public DbSet<Supplier> Suppliers => Set<Supplier>();
    public DbSet<Customer> Customers => Set<Customer>();
+   public DbSet<Product> Products => Set<Product>();
 }

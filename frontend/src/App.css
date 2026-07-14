@@ -173,3 +173,29 @@
   padding: 32px;
   color: var(--text);
 }
+
+.screen-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3f7a5c;
+  padding: 16px 24px;
+}
+
+.screen-select {
+  font-size: 1.1rem;
+  padding: 8px 14px;
+  border: 1px solid #cfe6d7;
+  border-radius: 8px;
+  background: #fff;
+  color: #2f4a3d;
+  min-width: 200px;
+}
+
+.screen-select:focus {
+  outline: none;
+  border-color: #6fae7f;
+}
