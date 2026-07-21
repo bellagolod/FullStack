@@ -43,7 +43,7 @@ export default function CustomersPage() {
    };
 
    return (
-      <div className="page">
+      <div className="page" dir="rtl">
          <h1>לקוחות</h1>
 
          <form className="customer-form" onSubmit={handleSubmit}>

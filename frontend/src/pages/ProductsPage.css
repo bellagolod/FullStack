@@ -64,6 +64,11 @@
   background: #6fae7f;
   color: #fff;
   flex-shrink: 0;
+  width: auto;
+  border-radius: 16px;
+  padding: 0 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 .add-btn:hover { background: #5b9a6c; }
 
@@ -102,6 +107,7 @@
 .row-actions {
   display: flex;
   gap: 4px;
+  flex-wrap: wrap;
 }
 
 .edit-btn { background: transparent; color: #6fae7f; }
@@ -112,6 +118,13 @@
 
 .cancel-btn { background: transparent; color: #8fae9a; }
 .cancel-btn:hover { background: #f3f3f3; color: #666; }
+
+.save-error {
+  color: #c65b5b;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  flex-basis: 100%;
+}
 
 .products-table td input {
   width: 100%;

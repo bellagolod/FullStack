@@ -1,10 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import './ProductsPage.css'
 import type { Product } from '../types/Product'
 import { getProducts, createProduct, updateProduct, deleteProduct } from '../api/productsApi'
 
 function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([])
+  const queryClient = useQueryClient()
+  const { data: products = [], isLoading, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  })
+  const updateMutation = useMutation({
+    mutationFn: updateProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] })
+    },
+  })
+
+
   const [name, setName] = useState('')
   const [color, setColor] = useState('')
   const [price, setPrice] = useState('')
@@ -15,14 +28,9 @@ function ProductsPage() {
   const [editPrice, setEditPrice] = useState('')
   const [editInStock, setEditInStock] = useState(false)
 
-  useEffect(() => {
-    fetchProducts()
-  }, [])
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Failed to load products</p>
 
-  async function fetchProducts() {
-    const data = await getProducts()
-    setProducts(data)
-  }
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault()
@@ -31,16 +39,19 @@ function ProductsPage() {
     setColor('')
     setPrice('')
     setInStock(false)
-    fetchProducts()
+    queryClient.invalidateQueries({ queryKey: ['products'] })
+
   }
 
   async function handleDelete(id: number) {
     if (!window.confirm('Delete this product?')) return
     await deleteProduct(id)
-    fetchProducts()
+    queryClient.invalidateQueries({ queryKey: ['products'] })
+
   }
 
   function startEdit(p: Product) {
+    updateMutation.reset()
     setEditingId(p.id)
     setEditName(p.name)
     setEditColor(p.color ?? '')
@@ -49,14 +60,17 @@ function ProductsPage() {
   }
 
   function cancelEdit() {
+    updateMutation.reset()
     setEditingId(null)
   }
 
-  async function handleSaveEdit(id: number) {
-    await updateProduct({ id, name: editName, color: editColor, price: Number(editPrice), inStock: editInStock })
-    setEditingId(null)
-    fetchProducts()
-  }
+  function handleSaveEdit(id: number) {
+  updateMutation.mutate(
+    { id, name: editName, color: editColor, price: Number(editPrice), inStock: editInStock },
+    { onSuccess: () => setEditingId(null) }             
+  )
+}
+  
 
   return (
     <div className="products-page">
@@ -71,9 +85,7 @@ function ProductsPage() {
           <input type="checkbox" checked={inStock} onChange={e => setInStock(e.target.checked)} />
         </label>
         <button type="submit" className="icon-btn add-btn" aria-label="Add product" title="Add product">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
+          ADD
         </button>
       </form>
 
@@ -91,7 +103,13 @@ function ProductsPage() {
                   <td><input type="number" value={editPrice} onChange={e => setEditPrice(e.target.value)} /></td>
                   <td><input type="checkbox" checked={editInStock} onChange={e => setEditInStock(e.target.checked)} /></td>
                   <td className="row-actions">
-                    <button onClick={() => handleSaveEdit(p.id)} className="icon-btn save-btn" aria-label="Save" title="Save">
+                    <button
+                      onClick={() => handleSaveEdit(p.id)}
+                      disabled={updateMutation.isPending}
+                      className="icon-btn save-btn"
+                      aria-label="Save"
+                      title="Save"
+                    >
                       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
@@ -102,6 +120,7 @@ function ProductsPage() {
                         <line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
                     </button>
+                    {updateMutation.isError && <span className="save-error">שמירה נכשלה</span>}
                   </td>
                 </>
               ) : (
